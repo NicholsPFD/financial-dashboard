@@ -1,65 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Household Ledger</title>
-    <meta name="description" content="A personal financial dashboard: balance sheet, budget, debt payoff, investments, and retirement planning.">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📒</text></svg>">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Household Ledger</title>
+  <meta name="description" content="A personal finance dashboard: balance sheet, budget, debt payoff, investments, and retirement planning.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📒</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body> 
-    <a class="skip-link" href="#main">Skip to content</a>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-    <div class="app">
-        <aside class="sidebar">
-            <div class="brand">
-                <span class="brand-mark" aria-hidden="true"></span>
-                </div>
-                    <strong>Household Ledger</strong>
-                    <span id="brand-month" class="brand-month"></span>
-                </div>
-            </div>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <strong>Household Ledger</strong>
+          <span id="brand-month" class="brand-month"></span>
+        </div>
+      </div>
 
-            <nav class="tabs" aria-label="Pages">
-                <a href="#balance-sheet" data-page="balance-sheet">Balance sheet</a>
-                <a href="#budget" data-page="budget">Budget &amp; spending</a>
-                <a href="#debt" data-page="debt">Debt manager</a>
-                <a href="#investments" data-page="investments">Investments</a>
-                <a href="#retirement" data-page="retirement">Retirement planner</a>
-            </nav>
+      <nav class="tabs" aria-label="Pages">
+        <a href="#balance-sheet" data-page="balance-sheet">Balance sheet</a>
+        <a href="#budget" data-page="budget">Budget &amp; spending</a>
+        <a href="#debt" data-page="debt">Debt manager</a>
+        <a href="#investments" data-page="investments">Investments</a>
+        <a href="#retirement" data-page="retirement">Retirement planner</a>
+      </nav>
 
-            <div class="sidebar-foot">
-                <button id="close-month-btn" class="btn btn-primary" type="button" data-action="open-close">Close month</button>
-                <details class="data-menu">
-                    <summary>Your data</summary>
-                    <div class="data-menu-body">
-                        <button class="menu-btn" type="button" data-action="export">Download backup</button>
-                        <label class="menu-btn file-btn">Restore from backup
-                            <input type="file" id="import-file" accept="application/json,.json">
-                        </label> 
-                        <button class="menu-btn" type="button" id="undo-button" data-action="undo-close">Undo last month close</button>
-                        <button class="menu-btn" type="button" data-action="clear-sample">Start over with a blank ledger</button>
-                        <p  class="menu-note">Your numbers are saved in this browser only. Download a backup each month.</p>
-                    </div>
-                </details>
-            </div>
-        </aside>
+      <div class="sidebar-foot">
+        <button id="close-month-btn" class="btn btn-primary" type="button" data-action="open-close">Close month</button>
+        <details class="data-menu">
+          <summary>Your data</summary>
+          <div class="data-menu-body">
+            <button class="menu-btn" type="button" data-action="export">Download backup</button>
+            <label class="menu-btn file-btn">Restore from backup
+              <input type="file" id="import-file" accept="application/json,.json">
+            </label>
+            <button class="menu-btn" type="button" id="undo-btn" data-action="undo-close">Undo last month close</button>
+            <button class="menu-btn" type="button" data-action="clear-sample">Start over with a blank ledger</button>
+            <p class="menu-note">Your numbers are saved in this browser only. Download a backup each month.</p>
+          </div>
+        </details>
+      </div>
+    </aside>
 
-        <main id="main" tabindex="-1">
-            <noscript><p>This dashboard needs JavaScript enabled to function properly.</p></noscript>
-        </main>
-    </div>
+    <main id="main" tabindex="-1">
+      <noscript><p>This dashboard needs JavaScript turned on.</p></noscript>
+    </main>
+  </div>
 
-    <dialog id="close-dialog" aria-labelledby="close-title"></dialog>
-    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <dialog id="close-dialog" aria-labelledby="close-title"></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-    <!-- Chart library (loaded from a CDN, pinned to an exact version) -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-    <!-- All of the dashboard's logic -->
-    <script src="app.js"></script>
-</body>      
+  <!-- Chart library (loaded from a CDN, pinned to an exact version) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <!-- All of the dashboard's logic -->
+  <script src="app.js"></script>
+</body>
 </html>

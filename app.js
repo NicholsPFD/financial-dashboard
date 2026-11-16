@@ -1,48 +1,49 @@
 'use strict';
 
-/* ======================================================================
-    Household Ledger: a personal finance dashboard
+/* =====================================================================
+   Household Ledger: a personal finance dashboard
 
-    How this file is organized
-        1. Helpers (formatting, dates)
-        2. Your data: sample data, loading, and saving
-        3. Calculations: totals, debt payoff, investments, retirement
-        4. Monthly close: the code that rolls numbers forward each month
-        5. Pages: one render function per page
-        6. Charts
-        7. Events: typing, clicking, routing between Pages
-    Everything you type is saved in THIS browser with localStorage.
-    Nothing is sent to GitHub or any server.
-    ====================================================================== */
+   How this file is organized
+     1. Helpers (formatting, dates)
+     2. Your data: sample data, loading and saving
+     3. Calculations: totals, debt payoff, investments, retirement
+     4. Monthly close: the code that rolls numbers forward each month
+     5. Pages: one render function per page
+     6. Charts
+     7. Events: typing, clicking, routing between pages
 
-const STORAAGE_KEY = 'household-ledger-v1';
+   Everything you type is saved in THIS browser with localStorage.
+   Nothing is sent to GitHub or to any server.
+   ===================================================================== */
+
+const STORAGE_KEY = 'household-ledger-v1';
 const UNDO_KEY = 'household-ledger-undo-v1';
 
-/* -----------------------------------------------------------------------
-    1. Helpers
-    ---------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------
+   1. Helpers
+   --------------------------------------------------------------------- */
 const uid = () => Math.random().toString(36).slice(2, 10);
 const $ = (sel, root = document) => root.querySelector(sel);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => (
-    { '&': '&amp;', '<': '&lt;', '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
 ));
 const num = (v) => { const n = Number(v); return Number.isFinite(n) ? n : 0; };
 const sum = (arr, f = (x) => x) => arr.reduce((total, x) => total + num(f(x)), 0);
 const round2 = (n) => Math.round(num(n) * 100) / 100;
 
-/** Accounting style: negatives in parentheses */
+/** Accounting style: negatives in parentheses, e.g. ($1,200) */
 function money(n, cents = false) {
-    const v = num(n);
-    const s = Math.abs(v).toLocaleString('en-US', {
-        style: 'currency', currency: 'USD',
-        minimumFrantionDigits: cents ? 2: 0, maximumFractionDigits: cents ? 2 : 0,
-    });
-    return v < -0.004 ? `(${s})` : s;
+  const v = num(n);
+  const s = Math.abs(v).toLocaleString('en-US', {
+    style: 'currency', currency: 'USD',
+    minimumFractionDigits: cents ? 2 : 0, maximumFractionDigits: cents ? 2 : 0,
+  });
+  return v < -0.004 ? `(${s})` : s;
 }
 const moneyHTML = (n, cents = false) => `<span class="${num(n) < -0.004 ? 'neg' : ''}">${money(n, cents)}</span>`;
 const signedHTML = (n) => (num(n) < -0.004
-    ? `<span class="neg">${money(n)}</span>`
-    : `<span class="pos">=${money(n)}</span>`);
+  ? `<span class="neg">${money(n)}</span>`
+  : `<span class="pos">+${money(n)}</span>`);
 const pct = (n, digits = 1) => `${num(n).toFixed(digits)}%`;
 function compactMoney(v) {
   const a = Math.abs(v); const sign = v < 0 ? '-' : '';
@@ -67,7 +68,7 @@ function monthLabel(key, short = false) {
 /* ---------------------------------------------------------------------
    2. Your data
    --------------------------------------------------------------------- */
-   function defaultCategories(withAmounts) {
+function defaultCategories(withAmounts) {
   return [
     ['Paycheck', 'income', 5400], ['Side income', 'income', 300],
     ['Housing', 'expense', 1850], ['Groceries', 'expense', 600], ['Utilities', 'expense', 260],
@@ -136,7 +137,7 @@ function sampleState() {
     [1, 'Transfer to savings', 'Savings transfer', 250],
   ].map(([d, desc, c, amount]) => ({ id: uid(), date: day(d), desc, categoryId: cat(c), amount }));
 
-    // Six made-up past months so the net worth chart has something to show
+  // Six made-up past months so the net worth chart has something to show
   const a = sum(s.assets, (x) => x.value) + sum(s.investments, (x) => x.value);
   const l = sum(s.debts, (x) => x.balance);
   s.history = [6, 5, 4, 3, 2, 1].map((k) => {
@@ -494,6 +495,7 @@ function clearSample() {
 /* ---------------------------------------------------------------------
    5. Pages
    --------------------------------------------------------------------- */
+
 /* Small building blocks used by every page */
 function inp(col, item, field, { type = 'text', step, label, cls = '', list } = {}) {
   const value = type === 'number' ? round2(item[field]) : esc(item[field]);

@@ -1,109 +1,109 @@
-/*  ==========================================================
-    Household Ledger styles
-    The look borrows from an accountant's green columnar pad:
-    navy ink, red ink for negatives, ruled columns, and a 
-    double rule under grand totals.
-    ========================================================== */
+/* ==========================================================
+   Household Ledger styles
+   The look borrows from an accountant's green columnar pad:
+   navy ink, red ink for negatives, ruled columns, and a
+   double rule under grand totals.
+   ========================================================== */
 
 :root {
-    --paper: #EBF1E4;           /* ledger-pad green, used for the binder */
-    --sheet: #F8FAF4;           /* the open page */
-    --rule: #CCD8C0;            /* faint column and row rules */
-    --rule-strong: #9EB08D;     /* header rules, quiet buttons */
-    --ink: #1D2945;             /* navy ink for text and totals */
-    --pencil: #5B6656;          /* secondary text */
-    --red: #B42318;             /* red ink for negatives, over budget */
-    --green: #2E6B3F;           /* green ink for gains, on track */
-    --focus: #2B59C3;
-    --fill: rgba(29, 41, 69, 0.08);
-    --c1: #1D2945; --c2: #2E6B3F; --c3: #9A7420; --c4: #5E77B3; --c5: #8FA67C; --c6: #7A4E8A;
-    --radius: 6pc;
-    color-scheme: light;
-    font-family: 'Public Sans', 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
+  --paper: #EBF1E4;        /* ledger-pad green, used for the binder */
+  --sheet: #F8FAF4;        /* the open page */
+  --rule: #CCD8C0;         /* faint column and row rules */
+  --rule-strong: #9EB08D;  /* header rules, quiet buttons */
+  --ink: #1D2945;          /* navy ink for text and totals */
+  --pencil: #5B6656;       /* secondary text */
+  --red: #B42318;          /* red ink: negatives, over budget */
+  --green: #2E6B3F;        /* gains, on track */
+  --focus: #2B59C3;
+  --fill: rgba(29, 41, 69, 0.08);
+  --c1: #1D2945; --c2: #2E6B3F; --c3: #9A7420; --c4: #5E77B3; --c5: #8FA67C; --c6: #7A4E8A;
+  --radius: 6px;
+  color-scheme: light;
+  font-family: 'Public Sans', 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
 }
 
-@media prefers-color-scheme: dark) {
-    :root {
-        --paper: #101611;
-        --sheet: #172019;
-        --rule: #2B392D;
-        --rule-strong: #4A5E4D;
-        --ink: #E2EADC;
-        --pencil: #9DAA97;
-        --red: #FF8B7B;
-        --green: #8BD39D;
-        --focus: #8EB1FF;
-        --fill: rgba(226, 234, 220, 0.08);
-        --c1: #C9D5F2; --c2: #8BD39D; --c3: #E2BE6A; --c4: #8FA8E8; --c5: #B5C9A3; --c6: #C9A0D8;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #101611;
+    --sheet: #172019;
+    --rule: #2B392D;
+    --rule-strong: #4A5E4D;
+    --ink: #E2EADC;
+    --pencil: #9DAA97;
+    --red: #FF8B7B;
+    --green: #8BD39D;
+    --focus: #8EB1FF;
+    --fill: rgba(226, 234, 220, 0.08);
+    --c1: #C9D5F2; --c2: #8BD39D; --c3: #E2BE6A; --c4: #8FA8E8; --c5: #B5C9A3; --c6: #C9A0D8;
     color-scheme: dark;
-    }
+  }
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; }
 body {
-    background: var(--paper);
-    color: var(--ink);
-    font-size: 1rem;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 a { color: var(--ink); text-underline-offset: 2px; }
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
 .skip-link {
-    position: absolute; left: 1rem; top: -3rem; z-index: 50;
-    background: var(--ink); color: var(--sheet); padding: .5rem .9rem; border-radius: var(--radius);
+  position: absolute; left: 1rem; top: -3rem; z-index: 50;
+  background: var(--ink); color: var(--sheet); padding: .5rem .9rem; border-radius: var(--radius);
 }
 .skip-link:focus { top: 1rem; }
 .sr-only {
-    position: absolute; width: 1px; padding: 0; marhin: -1px;
-    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
 
-/* ---------- Layout: binder with index tabs and a page ---------- */
+/* ---------- Layout: binder with index tabs ---------- */
 .app {
-    display:grid;
-    grid-template-columns: 15.5rem minmax(0, 1fr);
-    min-height: 100vh;
+  display: grid;
+  grid-template-columns: 15.5rem minmax(0, 1fr);
+  min-height: 100vh;
 }
 .sidebar {
-    position: sticky; top: 0;
-    height: 100vh; overflow-y: auto;
-    display: flex; flex-direction: column; gap: 1.75rem;
-    padding: 1.5rem 0 1.5rem 1.25rem;
+  position: sticky; top: 0;
+  height: 100vh; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 1.75rem;
+  padding: 1.5rem 0 1.5rem 1.25rem;
 }
 .brand { display: flex; gap: .8rem; align-items: center; padding-right: 1.25rem; }
 .brand strong { display: block; font-size: 1.1rem; font-weight: 800; letter-spacing: -.01em; }
-.brand-month { display: block; fon5t-size: .85rem; color: var(--pencil); }
+.brand-month { display: block; font-size: .85rem; color: var(--pencil); }
 .brand-mark {
-    flex: none; width: 2rem; height: 2.5rem; border-radius: 3px;
-    border: 1px solid var(--rule-strong);
-    background: repeating-linear-gradient(to bottom, var(--sheet) 0 5px, var(--rule) 5px 6px);
-    box-shadow: insert 6px 0 0 var(--green);
+  flex: none; width: 2rem; height: 2.5rem; border-radius: 3px;
+  border: 1px solid var(--rule-strong);
+  background: repeating-linear-gradient(to bottom, var(--sheet) 0 5px, var(--rule) 5px 6px);
+  box-shadow: inset 6px 0 0 var(--green);
 }
 
 .tabs { display: flex; flex-direction: column; gap: 2px; }
 .tabs a {
-    position: relative;
-    display: block;
-    padding: .6rem .9rem;
-    margin-right: -1px;
-    color: var(--pencil);
-    font-weight: 500;
-    text-decoration: none;
-    border: 1px solid transparent;
-    border-right: 0;
-    border-radius: var(--radius) 0 0 var(--radius);
+  position: relative;
+  display: block;
+  padding: .6rem .9rem;
+  margin-right: -1px;
+  color: var(--pencil);
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-right: 0;
+  border-radius: var(--radius) 0 0 var(--radius);
 }
-.tabs a:hover {color: var(--ink); }
+.tabs a:hover { color: var(--ink); }
 .tabs a[aria-current="page"] {
-    z-index: 1;
-    background: var(--sheet);
-    color: var(--ink);
-    font-weight: 700;
-    border-color: var(--rule);
-    box-shadow: insert 3px 0 0var(--green);
+  z-index: 1;
+  background: var(--sheet);
+  color: var(--ink);
+  font-weight: 700;
+  border-color: var(--rule);
+  box-shadow: inset 3px 0 0 var(--green);
 }
 
 .sidebar-foot { margin-top: auto; padding-right: 1.25rem; display: flex; flex-direction: column; gap: .75rem; }
@@ -111,42 +111,43 @@ a { color: var(--ink); text-underline-offset: 2px; }
 .data-menu summary:hover { color: var(--ink); }
 .data-menu-body { display: flex; flex-direction: column; gap: 2px; padding-top: .35rem; }
 .menu-btn {
-    font: inherit; font-size: .925rem; text-align: left; color: var(--ink);
-    background: transparent; border: 0; border-radius: 4px; padding: .4rem .5rem; cursor: pointer;
+  font: inherit; font-size: .925rem; text-align: left; color: var(--ink);
+  background: transparent; border: 0; border-radius: 4px; padding: .4rem .5rem; cursor: pointer;
 }
 .menu-btn:hover { background: var(--sheet); }
 .menu-btn:disabled { color: var(--pencil); opacity: .6; cursor: default; background: transparent; }
-.file-btn {position: relative; }
+.file-btn { position: relative; }
 .file-btn input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
 .file-btn:focus-within { outline: 2px solid var(--focus); }
 .menu-note { font-size: .8rem; color: var(--pencil); margin: .5rem .5rem 0; }
 
 main {
-    background: var(--sheet);
-    border-left: 1px solid var(--rule);
-    padding: 2rem clamp(1rem, 3.5vw, 3rem) 5rem;
-    min-width: 0;
+  background: var(--sheet);
+  border-left: 1px solid var(--rule);
+  padding: 2rem clamp(1rem, 3.5vw, 3rem) 5rem;
+  min-width: 0;
 }
-main.focus: { outline: none; }
+main:focus { outline: none; }
 .page { max-width: 72rem; }
 
 /* ---------- Page header and headline figure ---------- */
 .page-head {
-    display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between;
-    gap: 1rem 2rem;
-    padding-bottom: 1.25rem; margin-bottom: 1.5rem;
-    border-bottom: 1px solid var(--rule-strong);
+  display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between;
+  gap: 1rem 2rem;
+  padding-bottom: 1.25rem; margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--rule-strong);
 }
-h1 { font-size: 2rem; line-height: 1.15; font-weight: 800; letter-spacing: -.02rem; margin: 0; }
+h1 { font-size: 2rem; line-height: 1.15; font-weight: 800; letter-spacing: -.02em; margin: 0; }
 .lede { color: var(--pencil); max-width: 54ch; margin: .4rem 0 0; }
 .figure { text-align: right; }
 .figure-label { display: block; color: var(--pencil); font-size: .9rem; font-weight: 500; }
 .figure-value {
-    display: incline-block;
-    font-size: clamp(2.25rem, 5vw, 3.25rem);
-    font-weight: 800; letter-spacing: -.025em; line-height: 1.1;
-    font-variant-numeric: tabular-nums;
-    padding-bottom: 5px double currentColor;    /* accountant's double rule */
+  display: inline-block;
+  font-size: clamp(2.25rem, 5vw, 3.25rem);
+  font-weight: 800; letter-spacing: -.025em; line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  padding-bottom: .15rem;
+  border-bottom: 5px double currentColor;   /* accountant's double rule */
 }
 
 .subfigs { display: flex; flex-wrap: wrap; gap: 1rem 2.5rem; margin: 0 0 2rem; }
@@ -154,20 +155,20 @@ h1 { font-size: 2rem; line-height: 1.15; font-weight: 800; letter-spacing: -.02r
 .subfigs dd { margin: 0; font-size: 1.25rem; font-weight: 700; font-variant-numeric: tabular-nums; }
 
 /* ---------- Sections ---------- */
-.grid {display: grid; gap: 0 2rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 27rem), 1fr)); align-items: start; }
+.grid { display: grid; gap: 0 2rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 27rem), 1fr)); align-items: start; }
 .section { margin-bottom: 2.25rem; min-width: 0; }
 h2 { font-size: 1.2rem; font-weight: 700; letter-spacing: -.01em; margin: 0; }
 .section-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem 1rem; margin-bottom: .6rem; }
 .section-note { color: var(--pencil); font-size: .925rem; margin: .2rem 0 .8rem; max-width: 70ch; }
-.panel { border: 1px solid var(--pencil); foorder-radius: var(--radius); padding: 1rem 1.1rem; background: var(--sheet); }
-.chart-box { position: relative; Height: 18rem; }
-chart-box.short { height: 15rem; }
-.empty-block { color: var(--pencil); bordeer: 1px dashed var(--rule-strong); border-radius: var(--radius); padding: 1rem 1.1rem; margin: 0; }
+.panel { border: 1px solid var(--rule); border-radius: var(--radius); padding: 1rem 1.1rem; background: var(--sheet); }
+.chart-box { position: relative; height: 18rem; }
+.chart-box.short { height: 15rem; }
+.empty-block { color: var(--pencil); border: 1px dashed var(--rule-strong); border-radius: var(--radius); padding: 1rem 1.1rem; margin: 0; }
 
 .notice {
-    display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem;
-    background: var(--paper); border-left: 4px solid var(--green);
-    padding: .8rem 1rem; marhin-bottom: 1.75rem; border-radius: 0 var(--radius) var(--radius) 0;
+  display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem;
+  background: var(--paper); border-left: 4px solid var(--green);
+  padding: .8rem 1rem; margin-bottom: 1.75rem; border-radius: 0 var(--radius) var(--radius) 0;
 }
 .notice p { margin: 0; flex: 1 1 22rem; }
 .notice.warn { border-left-color: var(--red); }
@@ -176,29 +177,29 @@ chart-box.short { height: 15rem; }
 .table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: var(--radius); background: var(--sheet); }
 table.ledger { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
 .ledger th {
-    font-size: .85rem; font-weight: 600; color: var(--paper); text-align: left; white-space: nowrap; 
-    padding: .55rem .75rem; background: var(--paper); border-bottom: 1px solid var(--rule-strong);
+  font-size: .85rem; font-weight: 600; color: var(--pencil); text-align: left; white-space: nowrap;
+  padding: .55rem .75rem; background: var(--paper); border-bottom: 1px solid var(--rule-strong);
 }
 .ledger td { padding: .3rem .75rem; border-bottom: 1px solid var(--rule); vertical-align: middle; }
-.ledger .num { text-align: right; white-soace: nowrap; border-left: 1px solid var(--rule); }
+.ledger .num { text-align: right; white-space: nowrap; border-left: 1px solid var(--rule); }
 .ledger .act { width: 2.75rem; text-align: center; padding: .2rem; }
-.ledger td.empty {color: var(--pencil); padding: .9rem .75rem; }
+.ledger td.empty { color: var(--pencil); padding: .9rem .75rem; }
 .ledger tr.subhead td { background: var(--paper); font-weight: 700; padding-top: .5rem; padding-bottom: .5rem; }
 .ledger tr.subhead .btn-quiet { margin-left: .5rem; font-size: .875rem; }
 .ledger tr.total td { border-top: 1.5px solid var(--ink); font-weight: 700; padding-top: .6rem; padding-bottom: .6rem; }
 .ledger tr.grand td { font-weight: 800; border-bottom: 5px double var(--ink); padding-top: .65rem; padding-bottom: .65rem; }
 .ledger tr.linked td { color: var(--pencil); }
 .ledger tr.is-current td { background: var(--fill); }
-.ledger tbody tr:last-child, td { border-bottom-color: transparent; }
+.ledger tbody tr:last-child td { border-bottom-color: transparent; }
 .ledger tbody tr.grand:last-child td { border-bottom-color: var(--ink); }
 
 /* Editable cells look like ledger entries until you touch them */
 .cell {
-    font: inherit; color: inherit; background: transpaerent;
-    border: 1px solid transparent; border-radius: 4px;
-    padding: .3rem .4rem; width 100%; min-width: 0;
+  font: inherit; color: inherit; background: transparent;
+  border: 1px solid transparent; border-radius: 4px;
+  padding: .3rem .4rem; width: 100%; min-width: 0;
 }
-.cell:hover {border-color: var(--rule); }
+.cell:hover { border-color: var(--rule); }
 .cell:focus { outline: 2px solid var(--focus); outline-offset: 0; background: var(--sheet); }
 input.cell[type="number"] { text-align: right; font-variant-numeric: tabular-nums; }
 select.cell { cursor: pointer; }
